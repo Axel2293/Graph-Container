@@ -7,13 +7,13 @@
 typedef struct DGraph * DG;
 
 
-//DG createDGraph() #Crea una nueva instancia de un contenedor DGraph. 
+DG createDGraph(size_t); //#Crea una nueva instancia de un contenedor DGraph. 
 
-//int sizeGraph(DG) #Retorna el número de vértices que existen en el grafo. 
+int sizeGraph(DG); //#Retorna el número de vértices que existen en el grafo. 
 
 //bool adjacent(DG, x, y) #Retornar true si en el contendor DG, existe una arista entre los vértices:  'x' y 'y'. 
 
-/*Type neighbors(DG, x) #Retorna los datos que se encuentran en los vértices y que son vecinos del vértice x. 
+/*DATA neighbors(DG, x) #Retorna los datos que se encuentran en los vértices y que son vecinos del vértice x. 
                         Un vértice y es vecino de x, si existe una arista de x a y.*/
 
 //void addVertex(DG, x) #Agrega un nuevo vértice x, si no existe en el grafo DG. 
