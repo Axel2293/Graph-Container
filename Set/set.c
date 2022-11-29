@@ -157,9 +157,7 @@ bool containSet( Set s1, DATA data)
     return false;
     
 }
-
-
-
+// Removes an element from the set
 bool removeSet( Set s1, DATA data)
 {
     // Check first if data is in the set
@@ -322,4 +320,8 @@ bool removeSet( Set s1, DATA data)
     
 
 }
-
+// Destroys and deallocates the memory of the set
+void destroySet(Set s1)
+{
+    
+}
