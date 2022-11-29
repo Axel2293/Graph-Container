@@ -1,7 +1,13 @@
 #include "Graph.h"
 #include "List\list.h"
 #include "Stack/stack.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
 // #include "Container
+
+int testID = 1;
 
 
 
@@ -13,9 +19,8 @@ struct vertex
     List relations;
 };
 
-typedef struct vertex * Vertex;
-
-struct nodeEdge{
+struct edge
+{
     Vertex source;
     Vertex destination;
 };
@@ -27,7 +32,7 @@ struct graph
     // Lista que guarda a todos los vertices del grafo
     List vertices;
     // Lista de listas que guardan las relaciones de todos los nodos o vertice
-    List relations;
+    List allRelations; //¿Es necesario?
     // Ultimo ID asignado
     int last_id;
     // Stack con los ID eliminados
@@ -76,7 +81,7 @@ Graph createGraph(size_t bytes)
         //Lista para guardar todos los vertices
         g1->vertices=listCreate(sizeof(Vertex));
         // Lista para las relaciones de todos los vertices
-        g1->relations=listCreate(sizeof(List));
+        g1->allRelations=listCreate(sizeof(List));
         // Ultimo ID registrado
         g1->last_id=0; 
         // Stack de ID para reutilizar
@@ -97,14 +102,19 @@ int sizeGraph(Graph g1){
 bool adjacent(Graph g1, Vertex x, Vertex y)
 {
     //revisar esta parte
-    List relV1= listGet(g1->relations, x->ID);
-    short * relation= (short *) listGet(relV1, y->ID);
-    if ( *relation == 1)
-    {
+    if(g1 != NULL){
+        List relV1 = listGet(x->relations, x->ID); //Obtener la lista de realciones de x
+        List relV2 = listGet(g1 -> allRelations, y -> ID);   //Obtener la lista de relaciones de y
+        short * relation= (short *) listGet(relV1, y->ID);
+        if ( *relation == 1)
+        {
         return true;
+        }
+        return false;
     }
-    return false;
-    
+    else{
+        return NULL;
+    }
     //Comprobar que graph existe
         //Si existe obtener la lista de relaciones del vertice x y del vertice y
         //Si en cualquiera de las dos listas se encuentra el ID del otro vertice
@@ -124,7 +134,49 @@ List neighbors(Graph g1, Vertex x)
     //retonar la lista
 }
 
-void addEdge(DG, x, y, z){
+Vertex createVertex(DATA d, size_t bytes){
+        Vertex new = malloc(sizeof(struct vertex));
+        new->data=malloc(bytes);
+        memcpy(new->data, d, bytes);
+        new-> ID = 0;
+        new -> relations = NULL;
+        return new;
+}
+
+void addVertex(Graph g1, Vertex x){
+    if(g1 != NULL){
+
+        //Grafo vacio
+        if(g1 -> len == 0){
+            //ID como los vamos a asignar?
+            x -> ID = testID;
+            //Crear lista
+            x -> relations = listCreate(sizeof(List));
+            // Añadir el vertice a la lista de vertices del grafo
+            listAdd(g1 -> vertices, x);
+            g1 -> len += 1; //Aumentar el tamaño del grafo
+            testID += 1;
+        }
+        //Grafo No vacio
+        for (int i = 0; i < g1 -> len; i++){
+
+            Vertex current = listGet(g1 -> vertices, i);
+            /*if (memcmp()){
+                
+            }*/
+            
+            /* code */
+        }
+        
+
+    }
+    return NULL;
+    //Combrobar si existe el graph
+    //Cuando se cree el vertice se debe crear su lista
+    //Asignarle un ID
+}
+
+void addEdge(Graph g1, Vertex x, Vertex y, DATA d){
     //Comprobar que graph existe
     //comprobar con funcion adjacent que NO existe una arista
         /*Si no existe enlazar el source con el primer vertice
@@ -134,9 +186,4 @@ void addEdge(DG, x, y, z){
     //Cuando agregemos la arista almacenaremos el ID del vertice destination en la lista de relaciones del source
 
 
-}
-
-void addVertex(DG, x){
-    //Combrobar si existe el graph
-    //Cuando se cree el vertice se debe crear su lista
 }

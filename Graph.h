@@ -5,15 +5,20 @@
 #include <stdbool.h>
 
 typedef struct graph * Graph;
+typedef struct vertex * Vertex;
 
-Graph createGraph(size_t); //#Crea una nueva instancia de un contenedor DGraph. 
+// Crea una nueva instancia de un contenedor DGraph. 
+Graph createGraph(size_t);
+// Retorna el número de vértices que existen en el grafo.
+int sizeGraph(Graph);
+// Retornar true si en el contendor DG, existe una arista entre los vértices:  'x' y 'y'.
+bool adjacent(Graph, Vertex, Vertex);  
 
-int sizeGraph(DG); //#Retorna el número de vértices que existen en el grafo. 
+// #Retorna los datos que se encuentran en los vértices y que son vecinos del vértice x. 
+                                // Un vértice y es vecino de x, si existe una arista de x a y.*/
+List neighbors(Graph, Vertex);
 
-//bool adjacent(DG, x, y) #Retornar true si en el contendor DG, existe una arista entre los vértices:  'x' y 'y'. 
-
-/*DATA neighbors(DG, x) #Retorna los datos que se encuentran en los vértices y que son vecinos del vértice x. 
-                        Un vértice y es vecino de x, si existe una arista de x a y.*/
+Vertex createVertex(DATA d, size_t bytes);
 
 //void addVertex(DG, x) #Agrega un nuevo vértice x, si no existe en el grafo DG. 
 
