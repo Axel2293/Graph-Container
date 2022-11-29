@@ -4,10 +4,9 @@
 
 #include <stdbool.h>
 
-typedef struct DGraph * DG;
+typedef struct graph * Graph;
 
-
-DG createDGraph(size_t); //#Crea una nueva instancia de un contenedor DGraph. 
+Graph createGraph(size_t); //#Crea una nueva instancia de un contenedor DGraph. 
 
 int sizeGraph(DG); //#Retorna el número de vértices que existen en el grafo. 
 
