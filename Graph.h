@@ -4,11 +4,11 @@
 
 #include <stdbool.h>
 
-typedef struct DGraph * DG;
+typedef struct graph * Graph;
 
 
-//DG createDGraph() #Crea una nueva instancia de un contenedor DGraph. 
-
+// Crea una nueva instancia de un contenedor DGraph. 
+Graph createGraph(size_t);
 //int sizeGraph(DG) #Retorna el número de vértices que existen en el grafo. 
 
 //bool adjacent(DG, x, y) #Retornar true si en el contendor DG, existe una arista entre los vértices:  'x' y 'y'. 
