@@ -27,8 +27,11 @@ void addVertex(Graph, DATA, DATA);
 //  #Remueve el vértice x, si existe en el grafo DG.
 void removeVertex(Graph, DATA);
 //  #Agrega al grafo DG una arista z del vértice x al vértice y, si  no existe. 
-bool addEdge(Graph, DATA, DATA, DATA); 
+void addEdge(Graph, DATA, DATA, DATA); 
 
+DATA getVertexData(Graph, DATA);
+
+void setVertexData(Graph g1, DATA x, DATA dt);
 //void removeEdge(DG, x, y) #Remueve del grafo DG la arista del vértice x al vértice y, si existe.
 
 DATA getEdgeLabel(Graph, DATA, DATA);
