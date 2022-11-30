@@ -1,11 +1,9 @@
 #include "Graph.h"
-#include "List/list.h"
 #include "Stack/stack.h"
-#include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 // #include "Container
-
-
 
 struct vertex
 {
@@ -13,6 +11,7 @@ struct vertex
     DATA data;
     // Lista que guarda las relaciones del nodo o vertice
     List relations;
+    int lenr;
 };
 
 typedef struct vertex * Vertex;
@@ -34,7 +33,7 @@ struct graph
     // Lista que guarda a todos los vertices del grafo
     List vertices;
     // Lista de listas que guardan las relaciones de todos los nodos o vertice
-    //List relations;
+    List relations;
     // Ultimo ID asignado
     //int *last_id;
     // Stack con los ID eliminados
@@ -72,23 +71,25 @@ int intcmp(DATA num1, DATA num2)
     
 }
 
-Graph createGraph(size_t bytes)
+Graph createGraph(size_t bytesDT, size_t bytesID)
 {
     Graph g1= malloc(sizeof(struct graph));
     if (g1!=NULL)
     {
-        g1->bytes=bytes;
+        g1->bytesDT=bytesDT;
+        g1->bytesID = bytesID;
+        //g1->ID=ID;
         g1->len=0;
 
         //Lista para guardar todos los vertices
         g1->vertices=listCreate(sizeof(Vertex));
         // Lista para las relaciones de todos los vertices
-        g1->relations=listCreate(sizeof(List));
+        //g1->allrelations=listCreate(sizeof(List));
         // Ultimo ID registrado
-        g1->last_id=malloc(sizeof(int));
-        *g1->last_id=-1; 
+        //g1->last_id=malloc(sizeof(int));
+        //*g1->last_id=-1; 
         // Stack de ID para reutilizar
-        g1->recycleID=stackCreate(sizeof(int));
+        //g1->recycleID=stackCreate(sizeof(int));
         
         return g1;
     }
@@ -99,7 +100,7 @@ Graph createGraph(size_t bytes)
 int sizeGraph(Graph g1){
     if(g1 != NULL)
         return g1 -> len;
-    return NULL;
+    return 0;
 }
 
 Vertex findVRTX(Graph g1, DATA ID)
@@ -155,6 +156,7 @@ Vertex createVertex(DATA d, size_t bytesDT, DATA ID, size_t bytesID){
     new->ID=memcpy(new->ID, ID, bytesID);
     
     new -> relations = listCreate(sizeof(Edge));
+    new->lenr=0;
     return new;
 }
 
@@ -170,23 +172,20 @@ bool addVertex(Graph g1, DATA data, DATA ID){
             g1 -> len += 1; //Aumentar el tamaño del grafo
         }
         //Grafo No vacio
-        for (int i = 0; i < g1 -> len; i++){
+        else{
+            for (int i = 0; i < g1 -> len; i++){
 
-            Vertex current = listGet(g1 -> vertices, i);
-            if (memcmp(new->ID, current->ID, g1->bytesID) == 0){
-                printf("El vertice ya existe en el grafo\n");
-                return false;
+                Vertex current = listGet(g1 -> vertices, i);
+                if (memcmp(new->ID, current->ID, g1->bytesID) == 0){
+                    printf("El vertice ya existe en el grafo\n");
+                    return false;
+                }
+                listAdd(g1->vertices, new);
+                g1->len+=1;
+                printf("Vertice agregado al grafo\n");
+                return true; 
             }
-            listAdd(g1->vertices, new);
-            g1->len++;
-            printf("Vertice agregado al grafo\n");
-            return true;
-            
-            
-            
         }
-        
-
     }
     return false;
     //Combrobar si existe el graph
@@ -218,7 +217,10 @@ bool addEdge(Graph g1, DATA x, DATA y, DATA z){
             //  Copy la data para la arista z
             memcpy(newEDG->ID, z, g1->bytesID);
             //  Registrar la arista en las relaciones de el vertice x
+            xVRTX->lenr+=1;
             listAdd(xVRTX->relations, newEDG);
+            //listAdd(g1->allrelations, newEDG);
+
             printf("Arista de x a y creada con exito\n");
             return true;
         }
@@ -232,10 +234,35 @@ bool addEdge(Graph g1, DATA x, DATA y, DATA z){
 }
 
 
-List neighbors(Graph g1, Vertex x)
+/*List neighbors(Graph g1, DATA x)
 {
-    
+    Vertex xVRTX = findVRTX(g1, x);
+    if(g1!=NULL){
+        for (int i = 0; i < xVRTX->lenr; i++)
+        {
+            Edge current = listGet(xVRTX->relations, i);
+            return current->destination;
+        }
+    }
 }
 
-
-
+DATA getEdgeLabel(Graph g1, Vertex x, Vertex y){
+    if (g1 != NULL)
+    {
+        Vertex xVRTX = findVRTX(g1, x);
+        if (g1 != NULL)
+        {
+            Edge xEDG = listGet(xVRTX->relations, x->lenr);
+            for (int i = 0; i < xVRTX->lenr; i++)
+            {
+                Edge current = listGet(xVRTX->relations, i);
+                if (memcmp(current->source, xEDG->source, g1->bytesID) == 0 && memcmp(current->destination, xEDG->destination, g1->bytesID) == 0)
+                {
+                    return current->ID;
+                }
+            }
+        }
+    }
+    return NULL;
+}
+*/
