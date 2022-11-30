@@ -33,42 +33,8 @@ struct graph
     List vertices;
     // Lista de listas que guardan las relaciones de todos los nodos o vertice
     List relations;
-    // Ultimo ID asignado
-    //int *last_id;
-    // Stack con los ID eliminados
-    //Stack recycleID;
 
 };
-
-int idCompare(DATA d1, DATA d2)
-{
-    Vertex n1=d1, n2=d2;
-    if (n1->ID > n2->ID)
-    {
-        return 1;
-    }
-    else if (n1->ID < n2->ID)
-    {
-        return -1;
-    }
-    else return 0;
-}
-
-int intcmp(DATA num1, DATA num2)
-{
-    int *n1=num1, *n2=num2;
-    if (*n1 > *n2)
-    {
-        return 1;
-    }
-    else if (*n1< *n2)
-    {
-        return -1;
-    }
-    else return 0;
-    
-    
-}
 
 Graph createGraph(size_t bytesDT, size_t bytesID)
 {
@@ -249,7 +215,6 @@ void addEdge(Graph g1, DATA x, DATA y, DATA z){
     
 }
 
-
 List neighbors(Graph g1, DATA x)
 {
     Vertex xVRTX = findVRTX(g1, x);
@@ -306,7 +271,6 @@ void setVertexData(Graph g1, DATA x, DATA dt)
     }
 
 }
-
 
 DATA getEdgeLabel(Graph g1, DATA x, DATA y){
     if (g1 != NULL)

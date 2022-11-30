@@ -24,7 +24,7 @@ int main(void){
     // Agregar vertice 3
     addVertex(grafo,&n3,&id4);
     size=sizeGraph(grafo);
-    printf("Size Graph:%d\n",size);
+    printf("Size TOTAl: %d\n",size);
 
     adjacent(grafo, &id1, &id2);
 
