@@ -3,6 +3,9 @@
 #define _GRAPH_H_
 
 #include <stdbool.h>
+#include <stddef.h>
+
+typedef void * DATA;
 
 typedef struct graph * Graph;
 typedef struct vertex * Vertex;
@@ -18,7 +21,6 @@ bool adjacent(Graph, Vertex, Vertex);
                                 // Un vértice y es vecino de x, si existe una arista de x a y.*/
 List neighbors(Graph, Vertex);
 
-Vertex createVertex(DATA d, size_t bytes);
 
 //void addVertex(DG, x) #Agrega un nuevo vértice x, si no existe en el grafo DG. 
 
