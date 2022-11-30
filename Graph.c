@@ -33,7 +33,7 @@ struct graph
     // Lista que guarda a todos los vertices del grafo
     List vertices;
     // Lista de listas que guardan las relaciones de todos los nodos o vertice
-    List allrelations;
+    List relations;
     // Ultimo ID asignado
     //int *last_id;
     // Stack con los ID eliminados
@@ -84,7 +84,7 @@ Graph createGraph(size_t bytesDT, size_t bytesID)
         //Lista para guardar todos los vertices
         g1->vertices=listCreate(sizeof(Vertex));
         // Lista para las relaciones de todos los vertices
-        g1->allrelations=listCreate(sizeof(List));
+        //g1->allrelations=listCreate(sizeof(List));
         // Ultimo ID registrado
         //g1->last_id=malloc(sizeof(int));
         //*g1->last_id=-1; 
@@ -219,7 +219,7 @@ bool addEdge(Graph g1, DATA x, DATA y, DATA z){
             //  Registrar la arista en las relaciones de el vertice x
             xVRTX->lenr+=1;
             listAdd(xVRTX->relations, newEDG);
-            listAdd(g1->allrelations, newEDG);
+            //listAdd(g1->allrelations, newEDG);
 
             printf("Arista de x a y creada con exito\n");
             return true;
