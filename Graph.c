@@ -1,5 +1,4 @@
 #include "Graph.h"
-#include "Stack/stack.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
