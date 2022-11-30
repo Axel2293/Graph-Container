@@ -107,7 +107,8 @@ Vertex findVRTX(Graph g1, DATA ID)
     //Encontrar el Vertice con el ID
     for (size_t i = 0; i < listSize(g1->vertices); i++)
     {
-        Vertex temp=listGet(g1->vertices, i);
+        Vertex temp=malloc(sizeof(Vertex)); 
+        temp=listGet(g1->vertices, i);
         //  Comparar la memoria para determinar si los ID son iguales
         if (memcmp(ID, temp->ID, g1->bytesID) == 0)
         {
@@ -123,21 +124,33 @@ bool adjacent(Graph g1, DATA x, DATA y)
     //Encontrar el Vertice x Y y
     Vertex xVRTX=findVRTX(g1, x);
     Vertex yVRTX=findVRTX(g1, y);
-
+    printf("HOLA\n");
     if (xVRTX !=NULL && yVRTX!=NULL)
     {
-        for (size_t i = 0; i < listSize(xVRTX->relations); i++)
+        printf("HOLA\n");
+        printf("REL1: %d\n", xVRTX->lenr);
+        printf("REL2: %d\n", yVRTX->lenr);
+        if (xVRTX->lenr >0  && yVRTX->lenr>0)
         {
-            //  Obtener las aristas y comparar los destinos
-            Edge cmpr= listGet(xVRTX->relations, i);
-            if (cmpr->destination == y)
+            for (size_t i = 0; i < listSize(xVRTX->relations); i++)
             {
-                printf("X tiene una relación con Y\n" );
-                return true;
-            }   
+                printf("RELATIONS %d\n", listSize(xVRTX->relations));
+                //  Obtener las aristas y comparar los destinos
+                Edge cmpr= listGet(xVRTX->relations, i);
+                if (cmpr->destination == y)
+                {
+                    printf("X tiene una relación con Y\n" );
+                    return true;
+                }   
+            }
+            printf("No se encontró una realcion de X a Y\n");
+            return false;
         }
-        printf("No se encontró una realcion de X a Y\n");
-        return false;
+        else
+        {
+            printf("No existen relaciones\n");
+            return false;
+        }
     }
     printf("No se encontro uno de los vertices dados\n");
     return false;
@@ -150,22 +163,21 @@ Vertex createVertex(DATA d, size_t bytesDT, DATA ID, size_t bytesID){
     new->data=malloc(bytesDT);
     memcpy(new->data, d, bytesDT);
 
-    // Aplicar logica de stack para el remove de vertices
     new->ID=malloc(bytesID);
     new->ID=memcpy(new->ID, ID, bytesID);
     
     new -> relations = listCreate(sizeof(Edge));
+    printf("\t List %p\n", new);
     new->lenr=0;
     return new;
 }
 
-bool addVertex(Graph g1, DATA data, DATA ID){
+void addVertex(Graph g1, DATA data, DATA ID){
     
     if(g1 != NULL){
-        Vertex new=createVertex(data, g1->bytesDT, ID, g1->bytesID);
         //Grafo vacio
         if(g1 -> len == 0){
-            
+            Vertex new=createVertex(data, g1->bytesDT, ID, g1->bytesID);
             // Añadir el vertice a la lista de vertices del grafo
             listAdd(g1 -> vertices, new);
             g1 -> len += 1; //Aumentar el tamaño del grafo
@@ -175,18 +187,22 @@ bool addVertex(Graph g1, DATA data, DATA ID){
             for (int i = 0; i < g1 -> len; i++){
 
                 Vertex current = listGet(g1 -> vertices, i);
-                if (memcmp(new->ID, current->ID, g1->bytesID) == 0){
+                if (memcmp(ID, current->ID, g1->bytesID) == 0){
                     printf("El vertice ya existe en el grafo\n");
-                    return false;
+                    return;
+                }else
+                {
+                    Vertex new=createVertex(data, g1->bytesDT, ID, g1->bytesID);
+                    listAdd(g1->vertices, new);
+                    g1->len+=1;
+                    printf("Vertice agregado al grafo \n");
+                    return;
                 }
-                listAdd(g1->vertices, new);
-                g1->len+=1;
-                printf("Vertice agregado al grafo\n");
-                return true; 
+                
             }
         }
     }
-    return false;
+    return;
     //Combrobar si existe el graph
     //Cuando se cree el vertice se debe crear su lista
     //Asignarle un ID

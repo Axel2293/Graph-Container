@@ -23,11 +23,19 @@ struct list
 List listCreate(size_t bytes)
 {
     List new=malloc(sizeof(struct list));
-    new->bytes=bytes;
-    new->first=NULL;
-    new->last=NULL;
-    new->size=0;
-    return new;
+    if (new!=NULL)
+    {
+        new->bytes=bytes;
+        new->first=NULL;
+        new->last=NULL;
+        new->size=0;
+        return new;
+    }
+    {
+        printf("Nel papito\n");
+        return NULL;
+    }
+    
 }
 
 unsigned int listSize(List l1)
@@ -46,8 +54,9 @@ unsigned int listSize(List l1)
 Node nodeCreate(DATA data, size_t bytes)
 {
     Node new=malloc(sizeof(struct node));
-    new->data=malloc(bytes);
-    memcpy(new->data, data, bytes);
+    //new->data=malloc(bytes);
+    //memcpy(new->data, data, bytes);
+    new->data=data;
     new->prior=NULL;
     new->next=NULL;
     return new;
@@ -96,9 +105,9 @@ DATA listGet(List l1, int indx)
     {
         if (i==indx)
         {
-            DATA get=malloc(l1->bytes);
-            memcpy(get, current->data, l1->bytes);
-            return get;
+            //DATA get=malloc(l1->bytes);
+            //memcpy(get, current->data, l1->bytes);
+            return current->data;
         }
         else
         {

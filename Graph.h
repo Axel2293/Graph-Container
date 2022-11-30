@@ -23,7 +23,7 @@ bool adjacent(Graph, DATA, DATA);
                                 // Un vértice y es vecino de x, si existe una arista de x a y./
 List neighbors(Graph, DATA);
 //  #Agrega un nuevo vértice x, si no existe en el grafo DG. 
-bool addVertex(Graph, DATA, DATA);
+void addVertex(Graph, DATA, DATA);
 //  #Remueve el vértice x, si existe en el grafo DG.
 void removeVertex(Graph, DATA);
 //  #Agrega al grafo DG una arista z del vértice x al vértice y, si  no existe. 
