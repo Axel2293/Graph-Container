@@ -4,7 +4,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
-#include "List\list.h"
+#include "List/list.h"
 
 typedef struct nodeEdge * Edge;
 typedef struct graph * Graph;
