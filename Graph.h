@@ -4,9 +4,9 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include "List\list.h"
 
 typedef void * DATA;
-
 typedef struct graph * Graph;
 typedef struct vertex * Vertex;
 
@@ -20,7 +20,6 @@ bool adjacent(Graph, Vertex, Vertex);
 // #Retorna los datos que se encuentran en los vértices y que son vecinos del vértice x. 
                                 // Un vértice y es vecino de x, si existe una arista de x a y.*/
 List neighbors(Graph, Vertex);
-
 
 //void addVertex(DG, x) #Agrega un nuevo vértice x, si no existe en el grafo DG. 
 
