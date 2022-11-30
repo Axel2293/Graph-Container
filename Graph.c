@@ -324,3 +324,21 @@ DATA getEdgeLabel(Graph g1, DATA x, DATA y){
     }
     return NULL;
 }
+
+void setEdgeLabel(Graph g1, DATA x, DATA y, DATA l){
+    if (g1 != NULL)
+    {
+        Vertex xVRTX = findVRTX(g1, x);
+        Vertex yVRTX = findVRTX(g1, y);
+        for (int i = 0; i < xVRTX->lenr; i++)
+        {
+            Edge current = listGet(xVRTX->relations, i);
+            if (memcmp(current->destination, yVRTX, g1->bytesID) == 0)
+            {
+                memcpy(current->ID, l, g1->bytesID);
+                return;
+            }
+            printf("No existe la arista\n");
+        }
+    }
+}

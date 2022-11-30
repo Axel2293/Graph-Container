@@ -36,5 +36,6 @@ void setVertexData(Graph g1, DATA x, DATA dt);
 
 DATA getEdgeLabel(Graph, DATA, DATA);
 
+void setEdgeLabel(Graph, DATA, DATA, DATA); 
 
 #endif /* _GRAPH_H_ */

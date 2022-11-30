@@ -56,5 +56,15 @@ int main(void){
     DATA label=getEdgeLabel(grafo, &id1, &id2);
     printf("Lablel: %c\n", *(char *) label);
 
+    //CombrobaciÃ³n getEdgeLabel y setEdgeLabel
+    label=getEdgeLabel(grafo, &id1, &id2);
+    printf("Lablel: %c\n", *(char *) label);
+
+    char tempEdge='F';
+    setEdgeLabel(grafo, &id1, &id2, &tempEdge);
+
+    label=getEdgeLabel(grafo, &id1, &id2);
+    printf("Lablel: %c\n", *(char *) label);
+    
     return 0;
 }
