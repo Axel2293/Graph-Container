@@ -159,7 +159,7 @@ void addVertex(Graph g1, DATA data, DATA ID){
         }
     }
     return;
-    //Combrobar si existe el graph
+    //Comprobar si existe el graph
     //Cuando se cree el vertice se debe crear su lista
     //Asignarle un ID
 }
