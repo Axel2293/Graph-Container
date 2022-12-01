@@ -51,7 +51,7 @@ int main(void){
     // Vecinos de V2 (No tiene)
     List VC2=neighbors(grafo, &id2);
 
-    printf("\n==========SOBREESCRIBIR DATOS V1==============\n");
+    printf("\n==========SOBRESCRIBIR DATOS V1==============\n");
     // Datos de V1
     DATA d1=getVertexData(grafo, &id1);
     printf("OLD DATA 1: %d\n", *(int *) d1);
@@ -62,7 +62,7 @@ int main(void){
     d1=getVertexData(grafo, &id1);
     printf("NEW DATA 1: %d\n", *(int *) d1);
 
-    printf("\n========SOBREESCRIBIR LABEL ARISTA============\n");
+    printf("\n========SOBRESCRIBIR LABEL ARISTA============\n");
     DATA label=getEdgeLabel(grafo, &id1, &id2);
     printf("OLD Label V1-V2: %c\n", *(char *) label);
 
@@ -79,5 +79,11 @@ int main(void){
     removeEdge(grafo, &id1, &id2);
 
     adjacent(grafo, &id1, &id2);
+
+    printf("\n==========ELIMINAR VERTICE==============\n");
+
+    removeVertex(grafo, &id4);
+
+    printf("NEW len: %d\n", sizeGraph(grafo));
     return 0;
 }

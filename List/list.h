@@ -15,6 +15,7 @@ void listAdd(List, DATA);
 DATA listGet(List, int);
 void listSet(List, int, DATA);
 DATA listRemove(List, int);
+void listDestroy(List);
 
 
 

@@ -239,6 +239,19 @@ DATA listRemove(List l1, int indx)
     
 }
 
-
+void listDestroy(List l1)
+{
+    if (l1!=NULL)
+    {
+        if (listSize(l1) >0)
+        {
+            for (size_t i = 0; i < listSize(l1); i++)
+            {
+                listRemove(l1,i);
+            }
+        }
+        free(l1);
+    }
+}
 
 

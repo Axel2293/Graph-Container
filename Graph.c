@@ -262,6 +262,65 @@ void setVertexData(Graph g1, DATA x, DATA dt)
 
 }
 
+void deleteEdges(Vertex x)
+{
+    if (x!=NULL)
+    {
+        for (size_t i = 0; i < listSize(x->relations); i++)
+        {
+            Edge current=listGet(x->relations, i);
+            free(current->ID);
+            free(current);
+            listRemove(x->relations, i);
+            x->lenr--;
+        }
+        listDestroy(x->relations);
+        
+        return;
+        
+    }
+    
+}
+
+void removeVertex(Graph g1, DATA x)
+{
+    if (g1!=NULL)
+    {
+        Vertex xVRTX= findVRTX(g1, x);
+        if (xVRTX !=NULL)
+        {
+            // Buscar los vertices que tienen relacion de y a x
+            for (size_t i = 0; i < listSize(g1->vertices); i++)
+            {
+                Vertex current = listGet(g1->vertices, i);
+                if (current != xVRTX)
+                {
+                    // Buscar si existe una arista de y a x
+                    if (adjacent(g1, current->ID, xVRTX->ID) == true)
+                    {
+                        // Eliminar
+                        removeEdge(g1, current->ID, xVRTX->ID);
+                    }
+                    
+                }
+                
+            }
+            
+            free(xVRTX->data);
+            free(xVRTX->ID);
+            g1->len--;
+            printf("Vertice eliminado correctamente\n");
+            return;
+            
+        }
+        return;
+
+        
+    }
+    return;
+    
+}
+
 void removeEdge(Graph g1, DATA x, DATA y)
 {
     Vertex xVRTX=findVRTX(g1, x);
@@ -279,6 +338,7 @@ void removeEdge(Graph g1, DATA x, DATA y)
                     free(cmpr->ID);
                     free(cmpr);
                     listRemove(xVRTX->relations, i);
+                    xVRTX->lenr--;
                     printf("Relacion eliminada correctamente\n" );
                     return;
                 }   
@@ -333,3 +393,4 @@ void setEdgeLabel(Graph g1, DATA x, DATA y, DATA l){
         }
     }
 }
+
