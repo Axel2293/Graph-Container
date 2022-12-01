@@ -26,16 +26,21 @@ int main(void){
     size=sizeGraph(grafo);
     printf("Size TOTAl: %d\n",size);
 
-    adjacent(grafo, &id1, &id2);
+    printf("\n================================\n");
 
+    // Todavia no hay relaciones
+    adjacent(grafo, &id1, &id2);
+    // Agregar arista de V1 a V2
     addEdge(grafo, &id1, &id2, &id3);
-
+    // Verificar si la arista existe
     adjacent(grafo, &id1, &id2);
-
+    // Arista de V1 a V3
     addEdge(grafo, &id1, &id4, &id5);
-
+    // Verificar la arista de V1 a V3
     adjacent(grafo, &id1, &id4);
     
+    printf("\n================================\n");
+
     List VC1=neighbors(grafo, &id1);
 
     for (size_t i = 0; i < listSize(VC1); i++)
@@ -66,5 +71,12 @@ int main(void){
     label=getEdgeLabel(grafo, &id1, &id2);
     printf("Lablel: %c\n", *(char *) label);
     
+    printf("\n================================\n");
+
+    adjacent(grafo, &id1, &id2);
+
+    removeEdge(grafo, &id1, &id2);
+
+    adjacent(grafo, &id1, &id2);
     return 0;
 }

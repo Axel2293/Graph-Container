@@ -32,7 +32,7 @@ void setVertexData(Graph g1, DATA x, DATA dt);
 void removeEdge(Graph, DATA, DATA);
 //  #Regresa los datos en la arista de x a y
 DATA getEdgeLabel(Graph, DATA, DATA);
-//  #Sobreescribe los datos en la arista de x a y
+//  #Sobreescribe los datos en la arista z  de x a y
 void setEdgeLabel(Graph, DATA, DATA, DATA); 
-
+    
 #endif /* _GRAPH_H_ */

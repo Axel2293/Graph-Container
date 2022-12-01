@@ -30,9 +30,7 @@ struct graph
     size_t bytesID;
     int len;
     // Lista que guarda a todos los vertices del grafo
-    List vertices;
-    // Lista de listas que guardan las relaciones de todos los nodos o vertice
-    List relations;
+    List vertices;    
 
 };
 
@@ -43,18 +41,10 @@ Graph createGraph(size_t bytesDT, size_t bytesID)
     {
         g1->bytesDT=bytesDT;
         g1->bytesID = bytesID;
-        //g1->ID=ID;
         g1->len=0;
-
         //Lista para guardar todos los vertices
         g1->vertices=listCreate(sizeof(Vertex));
-        // Lista para las relaciones de todos los vertices
-        //g1->allrelations=listCreate(sizeof(List));
-        // Ultimo ID registrado
-        //g1->last_id=malloc(sizeof(int));
-        //*g1->last_id=-1; 
-        // Stack de ID para reutilizar
-        //g1->recycleID=stackCreate(sizeof(int));
+
         
         return g1;
     }
@@ -272,6 +262,40 @@ void setVertexData(Graph g1, DATA x, DATA dt)
 
 }
 
+void removeEdge(Graph g1, DATA x, DATA y)
+{
+    Vertex xVRTX=findVRTX(g1, x);
+    Vertex yVRTX=findVRTX(g1, y);
+    if (xVRTX !=NULL && yVRTX!=NULL)
+    {
+        if (listSize(xVRTX->relations) >0 )
+        {
+            for (size_t i = 0; i < listSize(xVRTX->relations); i++)
+            {
+                //  Obtener las aristas y comparar los destinos
+                Edge cmpr= listGet(xVRTX->relations, i);
+                if (cmpr->destination == yVRTX)
+                {   
+                    free(cmpr->ID);
+                    free(cmpr);
+                    listRemove(xVRTX->relations, i);
+                    printf("Relacion eliminada correctamente\n" );
+                    return;
+                }   
+            }
+            printf("No se encontró una realcion de X a Y\n");
+            return;
+        }
+        else
+        {
+            printf("No existen relaciones en X\n");
+            return;
+        }
+    }
+    printf("No se encontro uno de los vertices dados\n");
+    return;
+}
+
 DATA getEdgeLabel(Graph g1, DATA x, DATA y){
     if (g1 != NULL)
     {
@@ -280,7 +304,7 @@ DATA getEdgeLabel(Graph g1, DATA x, DATA y){
         for (int i = 0; i < xVRTX->lenr; i++)
         {
             Edge current = listGet(xVRTX->relations, i);
-            if (memcmp(current->destination, yVRTX, g1->bytesID) == 0)
+            if (memcmp(current->destination->ID, yVRTX->ID, g1->bytesID) == 0)
             {
                 return current->ID;
             }
@@ -292,13 +316,16 @@ DATA getEdgeLabel(Graph g1, DATA x, DATA y){
 void setEdgeLabel(Graph g1, DATA x, DATA y, DATA l){
     if (g1 != NULL)
     {
+        // Buscar los 
         Vertex xVRTX = findVRTX(g1, x);
         Vertex yVRTX = findVRTX(g1, y);
         for (int i = 0; i < xVRTX->lenr; i++)
         {
+            // Buscar la arista
             Edge current = listGet(xVRTX->relations, i);
-            if (memcmp(current->destination, yVRTX, g1->bytesID) == 0)
+            if (memcmp(current->destination->ID, yVRTX->ID, g1->bytesID) == 0)
             {
+                // Copy de los nuevos datos a la arista
                 memcpy(current->ID, l, g1->bytesID);
                 return;
             }
