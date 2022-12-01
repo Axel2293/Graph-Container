@@ -82,8 +82,12 @@ int main(void){
 
     printf("\n==========ELIMINAR VERTICE==============\n");
 
+    printf("DATA of V3: %p\n", getVertexData(grafo, &id4));
+
     removeVertex(grafo, &id4);
 
     printf("NEW len: %d\n", sizeGraph(grafo));
+
+    printf("DATA of V3: %p\n", getVertexData(grafo, &id4));
     return 0;
 }

@@ -59,12 +59,11 @@ int sizeGraph(Graph g1){
 }
 
 Vertex findVRTX(Graph g1, DATA ID)
-{
+{   
     //Encontrar el Vertice con el ID
     for (size_t i = 0; i < listSize(g1->vertices); i++)
     {
-        Vertex temp=malloc(sizeof(Vertex)); 
-        temp=listGet(g1->vertices, i);
+        Vertex temp=listGet(g1->vertices, i);
         //  Comparar la memoria para determinar si los ID son iguales
         if (memcmp(ID, temp->ID, g1->bytesID) == 0)
         {
@@ -82,8 +81,6 @@ bool adjacent(Graph g1, DATA x, DATA y)
     Vertex yVRTX=findVRTX(g1, y);
     if (xVRTX !=NULL && yVRTX!=NULL)
     {
-        //printf("REL1: %d\n", xVRTX->lenr);
-        //printf("REL2: %d\n", yVRTX->lenr);
         if (xVRTX->lenr >0  || yVRTX->lenr>0)
         {
             for (size_t i = 0; i < listSize(xVRTX->relations); i++)
@@ -309,6 +306,16 @@ void removeVertex(Graph g1, DATA x)
             free(xVRTX->data);
             free(xVRTX->ID);
             g1->len--;
+            for (size_t i = 0; i < listSize(g1->vertices); i++)
+            {
+                Vertex temp=listGet(g1->vertices, i);
+                if (temp == xVRTX)
+                {
+                    listRemove(g1->vertices, i);
+                }
+                
+            }
+            free(xVRTX);
             printf("Vertice eliminado correctamente\n");
             return;
             

@@ -192,6 +192,7 @@ DATA listRemove(List l1, int indx)
                     free(l1->last);
                     l1->last=prior;
                     prior->next=NULL;
+                    l1->size--;
                     return temp;
                 }
                 //Between other elements
@@ -214,6 +215,7 @@ DATA listRemove(List l1, int indx)
 
                     next->prior=prior;
                     prior->next=next;
+                    l1->size--;
 
                     return temp;
                     
