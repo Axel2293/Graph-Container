@@ -44,8 +44,7 @@ Graph createGraph(size_t bytesDT, size_t bytesID)
         g1->len=0;
         //Lista para guardar todos los vertices
         g1->vertices=listCreate(sizeof(Vertex));
-
-        
+        printf("\tGrafo creado con exito\n");
         return g1;
     }
     return NULL;
@@ -90,20 +89,20 @@ bool adjacent(Graph g1, DATA x, DATA y)
                 Edge cmpr= listGet(xVRTX->relations, i);
                 if (cmpr->destination == yVRTX)
                 {
-                    printf("X tiene una relación con Y\n" );
+                    printf("\tX tiene una relación con Y\n" );
                     return true;
                 }   
             }
-            printf("No se encontró una realcion de X a Y\n");
+            printf("\tNo se encontró una realcion de X a Y\n");
             return false;
         }
         else
         {
-            printf("No existen relaciones\n");
+            printf("\tNo existen relaciones\n");
             return false;
         }
     }
-    printf("No se encontro uno de los vertices dados\n");
+    printf("\tNo se encontro uno de los vertices dados\n");
     return false;
     
 
@@ -118,7 +117,6 @@ Vertex createVertex(DATA d, size_t bytesDT, DATA ID, size_t bytesID){
     new->ID=memcpy(new->ID, ID, bytesID);
     
     new -> relations = listCreate(sizeof(Edge));
-    //printf("\t List %p\n", new);
     new->lenr=0;
     return new;
 }
@@ -132,7 +130,7 @@ void addVertex(Graph g1, DATA data, DATA ID){
             // Añadir el vertice a la lista de vertices del grafo
             listAdd(g1 -> vertices, new);
             g1 -> len += 1; //Aumentar el tamaño del grafo
-            printf("Vertice agregado al grafo \n");
+            printf("\tVertice agregado al grafo \n");
             return;
         }
         //Grafo No vacio
@@ -141,14 +139,14 @@ void addVertex(Graph g1, DATA data, DATA ID){
 
                 Vertex current = listGet(g1 -> vertices, i);
                 if (memcmp(ID, current->ID, g1->bytesID) == 0){
-                    printf("El vertice ya existe en el grafo\n");
+                    printf("\tEl vertice ya existe en el grafo\n");
                     return;
                 }else
                 {
                     Vertex new=createVertex(data, g1->bytesDT, ID, g1->bytesID);
                     listAdd(g1->vertices, new);
                     g1->len+=1;
-                    printf("Vertice agregado al grafo \n");
+                    printf("\tVertice agregado al grafo \n");
                     return;
                 }
                 
@@ -190,14 +188,14 @@ void addEdge(Graph g1, DATA x, DATA y, DATA z){
             listAdd(xVRTX->relations, newEDG);
             //listAdd(g1->allrelations, newEDG);
 
-            printf("Arista de x a y creada con exito\n");
+            printf("\tArista de x a y creada con exito\n");
             return;
         }
-        printf("La relación de x a y ya existe\n");
+        printf("\tLa relación de x a y ya existe\n");
         return;
         
     }
-    printf("Error: Grafo no creado\n");
+    printf("\tError: Grafo no creado\n");
     return;
     
 }
@@ -217,10 +215,10 @@ List neighbors(Graph g1, DATA x)
                 listAdd(VC, current->destination->data);
 
             }
-            printf("Hay relaciones\n");
+            printf("\tHay relaciones en x\n");
             return VC;
         }
-        printf("X no tiene vecinos\n");
+        printf("\tX no tiene vecinos\n");
         return NULL;
     }
     return NULL;
@@ -236,7 +234,7 @@ DATA getVertexData(Graph g1, DATA x)
         {
             return xVRTX->data;
         }
-        printf("No existe el vertice\n");
+        printf("\tNo existe el vertice x\n");
         return NULL;
         
     }
@@ -254,7 +252,7 @@ void setVertexData(Graph g1, DATA x, DATA dt)
             memcpy(xVRTX->data, dt, g1->bytesDT);
             return;
         }
-        printf("No existe el vertice\n");
+        printf("\tNo existe el vertice\n");
     }
 
 }
@@ -316,7 +314,7 @@ void removeVertex(Graph g1, DATA x)
                 
             }
             free(xVRTX);
-            printf("Vertice eliminado correctamente\n");
+            printf("\tVertice eliminado correctamente\n");
             return;
             
         }
@@ -346,16 +344,16 @@ void removeEdge(Graph g1, DATA x, DATA y)
                     free(cmpr);
                     listRemove(xVRTX->relations, i);
                     xVRTX->lenr--;
-                    printf("Relacion eliminada correctamente\n" );
+                    printf("\tRelacion eliminada correctamente\n" );
                     return;
                 }   
             }
-            printf("No se encontró una realcion de X a Y\n");
+            printf("\tNo se encontró una realcion de X a Y\n");
             return;
         }
         else
         {
-            printf("No existen relaciones en X\n");
+            printf("\tNo existen relaciones en X\n");
             return;
         }
     }
@@ -396,7 +394,7 @@ void setEdgeLabel(Graph g1, DATA x, DATA y, DATA l){
                 memcpy(current->ID, l, g1->bytesID);
                 return;
             }
-            printf("No existe la arista\n");
+            printf("\tNo existe la arista\n");
         }
     }
 }
