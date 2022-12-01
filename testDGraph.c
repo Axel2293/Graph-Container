@@ -1,9 +1,12 @@
-#include "Graph.h"
+#include "DGraph.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 int main(void){
+    printf("\n==========Creacion del grafo dirigido=========\n");
     Graph grafo=createGraph(sizeof(int) , sizeof(char));
+    printf("Direccion del grafo: %p\n", grafo);
+    printf("Tamaño inicial: %d\n", sizeGraph(grafo));
     int n1=10, n2 = 20, n3=30, size = sizeGraph(grafo);
     // Id sera un entero
     char id1='A', id2 = 'B', id3 = 'C' ,id4= 'D', id5='E';
@@ -95,12 +98,17 @@ int main(void){
 
     printf("\n==========ELIMINAR VERTICE==============\n");
 
-    printf("DATA of V3: %p\n", getVertexData(grafo, &id4));
+    printf("Antes de eliminar V3\n");
+    printf("\tDATA of V3: %p\n", getVertexData(grafo, &id4));
 
     removeVertex(grafo, &id4);
 
-    printf("NEW len: %d\n", sizeGraph(grafo));
+    printf("NUeva len despues de borrar: %d\n", sizeGraph(grafo));
 
+    printf("Despues de eliminar V3\n");
     printf("DATA of V3: %p\n", getVertexData(grafo, &id4));
+
+    printf("Verificando si existe arista V1-V3\n");
+    adjacent(grafo, &id1, &id4);
     return 0;
 }
